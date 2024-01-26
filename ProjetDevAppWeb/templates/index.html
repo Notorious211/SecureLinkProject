@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webapp</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='Front.css') }}">
+    <script src="https://kit.fontawesome.com/a56f60f291.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="header">
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <span class="white">C</span>
+                    <span class="blue">2</span>
+                    <span class="white">M.</span>
+                  </div>
+                  <ul id="sidemenu">
+                    
+                    <li><a href="#services">Results</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <i class="fa-solid fa-xmark" onclick="closemenu()"></i>
+                  </ul>
+                  <i class="fa-solid fa-bars" onclick="openmenu()"></i>
+                  
+            </nav>
+            
+            <div class="Searchbar">
+                <form role="search" method="post" class="search-form form" action="/">
+                    <div class="search-wrapper">
+                        <label>
+                            <input type="search" class="search-field" placeholder="Enter a website URL..." name="website" required />
+                        </label>
+                        <input type="submit" class="search-submit button" value="Search" />
+                    </div>
+                    <div  class="service-item" id="Rating">
+                        <h4>Website Safety Rating:</h4>
+                        <p>{{ results['rating'] }}/30</p>
+                    </div>
+                    
+                </form>
+            </div>
+    <!-- Placeholder for displaying results -->
+   
+</div>        
+            
+            
+    </div>
+     
+    <div id="services">
+        <div class="container">
+            
+            <h1 class="sub-title"><span class="blue">{{ searched_website or 'My' }}</span> Summary analysis:</h1>
+            
+            {% if results and results.analysis_info and results.reviews_info and results.virustotal_info and results.vulnerabilities and results.domain_info %}
+    <div class="servicers-list">
+        
+        <div class="webcontainer">
+
+        <div class="service-item" id="service-item-analysis-info1">
+            <div class="icon-title-container1">
+                <i class="{{ results.analysis_info.icon }}" style="color: #0072C6"></i>
+                <h2 class="servicetitle">Web Content Overview</h2>
+            </div>
+            <div class="info">
+                <p>{{ results.analysis_info.description[0]|safe }}</p>
+            </div>
+            <a class="learnmore" href="#">Learn more</a>
+        </div>
+        
+        <div class="service-item" id="service-item-analysis-info2">
+            <div class="icon-title-container1">
+                <i class="fa-solid fa-lock" style="color: #0072C6"></i>
+                <h2 class="servicetitle">Security & Sitemap Details </h2>
+            </div>
+            <div class="info">
+                <p>{{ results.analysis_info.description[1]|safe }}</p>
+            </div>
+            <a class="learnmore" href="#">Learn more</a>
+        </div>
+        </div>
+        <div class="Trustpilot">
+            <div class="icon-title-container2">
+                <i class="{{ results.reviews_info.icon }}" style="color: rgb(49, 209, 49);"></i>
+                <h2 class="servicetitle1">{{ results.reviews_info.title }}</h2>
+            </div>
+            <div class="service-item" id="service-item-reviews-info">
+                <p>{{ results.reviews_info.description|safe }}</p>
+                <a class="learnmore" href="#">Learn more</a>
+            </div>
+        </div>
+        
+        <div class="Vulnerabilites">
+            <div class="service-item" id="service-item-virustotal-info">
+                <div class="icon-title-container1">
+                    <i class="{{ results.virustotal_info.icon }}" style="color: #0072C6;"></i>
+                    <h2 class="servicetitle">{{ results.virustotal_info.title }}</h2>
+                </div>
+                <div class="info">
+                <h4>Retrieve Malicious Analysis Report from VirusTotal</h4>
+                <p >{{ results.virustotal_info.description|safe }}</p>
+                </div>
+                <a class="learnmore" href="#">Learn more</a>
+            </div>
+            
+            <div class="service-item" id="service-item-vulnerabilities">
+                <div class="icon-title-container1">
+                    <i class="{{ results.vulnerabilities.icon }}" style="color: #0072C6;"></i>
+                    
+                    <h2 class="servicetitle">{{ results.vulnerabilities.title }}</h2>
+                </div>
+                <div class="info">
+                <h4>Domain and Subdomain Vulnerability Analysis Report</h4>
+                <p>{{ results.vulnerabilities.description|safe }}</p>
+                </div>
+                <a class="learnmore" href="#">Learn more</a>
+            </div>
+        </div>
+        <div class="service-item" id="service-item-domain-info">
+            <div class="icon-title-container1">
+                <i class="{{ results.domain_info.icon }}" style="color: #0072C6;"></i>
+                <h2 class="servicetitle">{{ results.domain_info.title }}</h2>
+            </div>
+            <p>{{ results.domain_info.description|safe }}</p>
+            <a class="learnmore" href="#">Learn more</a>
+        </div>
+        
+    </div>
+    {% endif %}
+        </div>
+    </div>
+    <div id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="contact-left">
+                    <h1 class="sub-title">Contact <span class="blue">US</span>:</h1>
+                    <p><i class="fa-solid fa-paper-plane" style="color:#0072C6"></i>achraf.garnaoui@hotmail.com</p>
+                    <div class="social-icons">
+                        <a href="https://github.com/Poskidon" target="_blank"><i class="fa-brands fa-github" style="color:#0072C6"></i></a>
+                        <a href="https://www.linkedin.com/in/el-garnaoui-achraf-446a15209/" target="_blank"><i class="fa-brands fa-linkedin" style="color:#0072C6"></i></a>
+                    </div>
+                    
+                </div>
+                <div class="contact-right">
+                    <form name="submit-to-google-sheet">
+                        <input type="Name" placeholder="Your Name" required>
+                        <input type="email" name="email" placeholder="Your Email" required>
+                        <textarea name="Message" row="6" placeholder="Your Message" required></textarea>
+                        <button type="submit" class="btn btn1">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+</html>
